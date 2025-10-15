@@ -59,14 +59,14 @@
 ////local host
 
 
+
 import { io } from "socket.io-client";
-const socket = io("https://dummbackend.onrender.com", {  // ← CHANGE THIS
-  transports: ["polling", "websocket"],   // ← ADD POLLING TOO
-  autoConnect: true,           
-  reconnection: true,          
-  reconnectionAttempts: 5,     
-  reconnectionDelay: 1000,     
-  timeout: 10000,
+const socket = io("https://dummbackend.onrender.com", {
+  transports: ["websocket"],   // Force WebSocket transport
+  autoConnect: true,           // Connect immediately when imported
+  reconnection: true,          // Auto reconnect if connection drops
+  reconnectionAttempts: 5,     // Retry max 5 times
+  reconnectionDelay: 1000,     // Wait 1s between retries
 });
 
 // Debugging logs
@@ -76,7 +76,6 @@ socket.on("connect", () => {
 
 socket.on("connect_error", (err) => {
   console.log("🔴 User socket error:", err.message);
-  console.log("🔴 Connection URL: https://dummbackend.onrender.com");
 });
 
 socket.on("disconnect", (reason) => {
@@ -84,6 +83,8 @@ socket.on("disconnect", (reason) => {
 });
 
 export default socket;
+
+
 
 
 
